@@ -1,8 +1,398 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Nunito');
+// @import url('https://fonts.googleapis.com/css?family=Nunito');
 
 // Variables
 @import 'variables';
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+/* 
+    0.  GENERAL RULES
+*/
+
+body {
+    background-color: #f7f7f6
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: black;
+}
+
+/* 
+    1.  HELPER CLASSES
+*/
+
+.min-vh-100 {
+    min-height: 100vh;
+}
+
+.wwc-txt-green {
+    color: green !important;
+}
+
+.wwc-hidden {
+    display: none !important;
+}
+
+.shadow {
+    box-shadow: 0 .5rem 1rem rgba(0,0,0,.15)!important;
+}
+
+.wwc-mb-20 {
+    margin-bottom: 20px;
+}
+
+.wwc-mb-50 {
+    margin-bottom: 50px;
+}
+
+.wwc-mr-20 {
+    margin-right: 20px !important;
+}
+
+.wwc-ml-30 {
+    margin-left: 30px;
+}
+
+.wwc-my-0 {
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+}
+
+.wwc-mx-32 {
+    margin-right: 32px;
+    margin-left: 32px;
+}
+
+.wwc-bg-cyan {
+    background-color: #72c0db;
+}
+
+.wwc-bg-darbklue {
+    background-color: #194767;
+}
+
+.wwc-fsize-main {
+    font-size: 28px;
+}
+
+.wwc-fsize-links {
+    font-size: 0.85em;
+}
+
+.wwc-text-gray {
+    color: gray;
+}
+
+.wwc-txt-cyan {
+    color: #72c0db;
+}
+
+.wwc-txt-cyan:hover {
+    color: #72c0db;
+}
+
+.wwc-vertical-center {
+    position: absolute;
+    transform: translate(50%, -50%);
+    top: 50%;
+    right: 50%;
+    margin: 0 !important;
+}
+
+/* 
+    2.  STYLING CLASSES
+*/
+
+.wwc-navbar {
+    background-color: #72c0db !important;
+    padding: 25px 32px;
+}
+
+.wwc-navbar-brand {
+    margin-right: 58px;
+}
+
+.font-size-navbar {
+    font-size: 28px;
+}
+
+.wwc-uncompleted-and-date {
+    border-left: 2px solid white;
+    padding-left: 29px;
+}
+
+.wwc-number-of-incompleted-tasks {
+    font-weight: 500;
+    font-size: 17px;
+}
+
+.wwc-today-date {
+    font-size: 14px;
+    font-weight: 100;
+}
+
+.wwc-nav-link {
+    font-weight: 300;
+}
+
+.wwc-active-link {
+    font-weight: 500;
+}
+
+.wwc-nav-first-link {
+    margin-right: 46px;
+}
+
+.wwc-add-task-btn {
+    display: inline-block;
+    margin: 16px 0px 16px 0;
+    padding: 10px 40px;
+    background-color: #72c0db !important;
+}
+.active {
+    background-color: #194767!important;
+    border: 1px solid rgba(0,0,0,.125) !important;
+}
+
+.list-group-item {
+    padding: 1.15rem 1.25rem;
+}
+
+.wwc-tasks-container {
+    margin-right: 32px;
+    margin-left: 32px;
+}
+
+.wwc-tasks-container {
+    border-radius: 30px;
+}
+
+.table {
+    border-collapse: separate;
+    border-spacing: 0;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.table-bordered {
+    border-radius: 30px;
+}
+
+.wwc-task-owner {
+    width: 24.5%;
+    line-height: 33.5px;
+}
+
+.wwc-task-date-and-actions-admin {
+    width: 15%;
+    line-height: 33.5px;
+}
+
+.wwc-task-date-and-actions-regular {
+    width: 20%;
+    line-height: 33.5px;
+}
+
+.table .thead-dark th {
+    background-color: #194767 !important;
+    padding: 0.86rem .75rem;
+    font-weight: normal;
+}
+
+.table td {
+    padding: 0.86rem .75rem;
+    border-top: 1px solid #dee2e6;
+    background-color: white;
+}
+
+.wwc-task-name {
+    line-height: 33.5px;
+}
+
+.wwc-thead-first-element {
+    padding-left: 70px !important;
+}
+
+.wwc-complete-check {
+    margin: 0 10px;
+    font-size: 20px;
+    vertical-align: middle;
+    border: none;
+    cursor: pointer;
+}
+
+.wwc-complete-check:focus {
+    outline: none;
+}
+
+.wwc-edit-item {
+    margin-right: 30px;
+}
+
+.wwc-task-name span {
+    color: #72c0db
+}
+
+.wwc-home-link:hover {
+    text-decoration: none;
+}
+
+.wwc-form-wrapper {
+    width: 60%;
+    margin: 50px auto;
+    background: white;
+    padding: 30px 35px;
+}
+
+.wwc-fields-wrapper > div {
+    width: 48%;
+}
+
+.wwc-form-title {
+    font-size: 23px;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+.wwc-cancel-btn {
+    background: #f7f7f6;
+    margin-right: 20px;
+}
+
+.wwc-create-task-btn {
+    background-color: #72c0db;
+}
+
+.fa-pencil-alt {
+    opacity: 0.4;
+    color: #343a40;
+}
+
+.fa-pencil-alt:hover {
+    opacity: 1;
+}
+
+.fa-trash-alt {
+    opacity: 0.4;
+    color: red;
+}
+
+.fa-trash-alt:hover {
+    opacity: 1;
+}
+
+.wwc-task-name .fa-times-circle {
+    color: #343a40;
+    opacity: 0.40;
+}
+
+.wwc-task-name .fa-times-circle:hover {
+    opacity: 1;
+    color: red;
+}
+
+.wwc-task-title { 
+    color: #72c0db;
+    vertical-align: middle;
+}
+
+.wwc-task-title:hover { color: #72c0db; }
+
+.wwc-button-remove-task,
+.wwc-button-complete-task {
+    padding: 0;
+    border: none;
+}
+
+.wwc-form-remove-task,
+.wwc-form-complete-task
+{ display: inline; }
+
+.wwc-confirm-delete-btn {
+    background:#72c0db !important;
+}
+
+.wwc-task-completed {
+    color: green;
+    opacity: 0.70;
+}
+
+.wwc-task-completed:hover {
+    color: green;
+}
+
+.wwc-task-incompleted {
+    color: #343a40;
+    opacity: 0.70;
+}
+
+.wwc-task-incompleted:hover {
+    color: #343a40;
+}
+
+#wwc-notasks-msg {
+    padding: 48px 20px;
+    text-align: center;
+    color: gray;
+}
+
+#todo-title {
+    height: 40px;
+}
+
+.alert-danger {
+    padding: 7px 20px;
+}
+
+.wwc-btn-contrast {
+    border: 1px solid white;
+    padding: 10px 40px;
+    color: white;
+}
+
+.wwc-entry-form {
+    padding: 35px 35px;
+}
+
+.invalid-feedback:not(:first-of-type) {
+    //display: none !important;
+}
+
+.auth-wrapper{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.auth-wrapper .sign-form{
+    max-width: 350px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.auth-wrapper h1{margin-bottom: 20px;}
+
+.wwc-signin-wrapper {
+    width: 40% !important;
+}
+
+.pagination .active {
+    border: none !important;
+}
+
+.page-item.active .page-link {
+    border: 1px solid #194767;
+    background-color: #194767;
+}
+
+.pagination .page-link {
+    color: #194767;
+}
