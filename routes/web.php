@@ -11,12 +11,10 @@ Route::get('/', function ()
 
     if ($filterStatus == "incompleted") {
         $todos = Todo::where('completed', false)->get();
-        $filterStatus = "incompleted";
     }
 
     if ($filterStatus == "completed") {
         $todos = Todo::where('completed', true)->get();
-        $filterStatus = "completed";
     }
 
     if ($filterStatus == "") {
@@ -24,8 +22,8 @@ Route::get('/', function ()
     }
 
     return view('index')
-        ->withTodos($todos)
-        ->withFilterStatus($filterStatus);
+        ->with('todos', $todos)
+        ->with('mainViewFlag', true);
 
 })->name('index');
 

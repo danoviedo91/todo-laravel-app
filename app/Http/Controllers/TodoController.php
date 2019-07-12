@@ -39,6 +39,7 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+
         $todo = new Todo();
 
         $todo->id = Uuid::uuid4();
@@ -48,6 +49,7 @@ class TodoController extends Controller
         $todo->save();
 
         return Redirect::route('todos.show', ['todo' => $todo->id]);
+
     }
 
     /**
@@ -59,7 +61,8 @@ class TodoController extends Controller
     public function show($id)
     {
         $todo = Todo::find($id);
-        return view('todo.show')->withTodo($todo);
+        return view('todo.show')
+            ->with('todo', $todo);
     }
 
     /**
@@ -71,7 +74,8 @@ class TodoController extends Controller
     public function edit($id)
     {
         $todo = Todo::find($id);
-        return view('todo.edit')->withTodo($todo);
+        return view('todo.edit')
+            ->with('todo', $todo);
     }
 
     /**

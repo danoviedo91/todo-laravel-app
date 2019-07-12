@@ -18,7 +18,14 @@
               class="wwc-navbar-brand navbar-brand mb-0 h1 text-white d-flex align-items-center font-size-navbar">ToDo
               List</span></a>
           <div class="wwc-uncompleted-and-date">
-            <span class="wwc-number-of-incompleted-tasks">0 Incompleted Tasks</span><br>
+            <span class="wwc-number-of-incompleted-tasks">
+              @if ( session('numberOfPendingTodoes') == 1 )
+                {{ session('numberOfPendingTodoes') }} Incompleted Task                 
+              @endif
+              @if ( session('numberOfPendingTodoes') != 1 )
+                {{ session('numberOfPendingTodoes') }} Incompleted Tasks                 
+              @endif
+            </span><br>
             <span class="wwc-today-date">{{ date('l d, F Y', strtotime( today() )) }}</span>
           </div>
         </div>
@@ -26,19 +33,19 @@
         <div class="ml-auto">
           <ul class="d-flex align-items-center list-unstyled m-0">
 
-            @if ($filterStatus == null)
+            @if (session('filterStatus') == null && isset($mainViewFlag) )
               <li>{!! link_to_route('index', 'All Tasks', [], ['class' => 'text-white wwc-nav-link wwc-nav-first-link wwc-active-link']) !!}</li>
             @else
               <li>{!! link_to_route('index', 'All Tasks', [], ['class' => 'text-white wwc-nav-link wwc-nav-first-link']) !!}</li>
             @endif
 
-            @if ($filterStatus == "incompleted")
+            @if (session('filterStatus') == "incompleted" && isset($mainViewFlag))
               <li>{!! link_to_route('index', 'Incompleted Tasks', ['status' => 'incompleted'], ['class' => 'text-white wwc-nav-link wwc-nav-first-link wwc-active-link']) !!}</li>
             @else
               <li>{!! link_to_route('index', 'Incompleted Tasks', ['status' => 'incompleted'], ['class' => 'text-white wwc-nav-link wwc-nav-first-link']) !!}</li>
             @endif
 
-            @if ($filterStatus == "completed")
+            @if (session('filterStatus') == "completed" && isset($mainViewFlag))
               <li>{!! link_to_route('index', 'Completed Tasks', ['status' => 'completed'], ['class' => 'text-white wwc-nav-link wwc-active-link']) !!}</li>
             @else
               <li>{!! link_to_route('index', 'Completed Tasks', ['status' => 'completed'], ['class' => 'text-white wwc-nav-link']) !!}</li>
