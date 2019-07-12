@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
+use Ramsey\Uuid\Uuid;
+use App\Todo;
+
 
 class TodoController extends Controller
 {
@@ -34,7 +39,15 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $todo = new Todo();
+
+        $todo->id = Uuid::uuid4();
+        $todo->title = Input::get('title');
+        $todo->description = Input::get('description');
+        $todo->deadline = Input::get('deadline');
+        $todo->save();
+
+        return Redirect::route('todos.show', ['todo' => $todo->id]);
     }
 
     /**
@@ -45,7 +58,8 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        //
+        $todo = Todo::find($id);
+        return view('todo.show')->withTodo($todo);
     }
 
     /**
@@ -56,7 +70,8 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        //
+        $todo = Todo::find($id);
+        return view('todo.edit')->withTodo($todo);
     }
 
     /**
@@ -68,7 +83,24 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+
+        $todo = Todo::find($id);
+
+        $todo->title = Input::get('title', $todo->title);
+        $todo->description = Input::get('description', $todo->description);
+        $todo->deadline = Input::get('deadline', $todo->deadline);
+        // Check if update is from "change_status", then change $todo->completed accordingly
+        $todo->completed = ($request->method() == "PATCH") ? !$todo->completed : $todo->completed;
+
+        $todo->update();
+
+        // If update is from "change_status", return to index
+        if ($request->method() == "PATCH") {
+            return Redirect::route('index');
+        }
+
+        return Redirect::route('todos.show', ['todo' => $todo->id]);
+
     }
 
     /**
@@ -79,6 +111,7 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Todo::destroy($id);
+        return redirect('/');
     }
 }

@@ -6,6 +6,7 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+@import "~@fortawesome/fontawesome-free/css/all.min.css";
 
 /* 
     0.  GENERAL RULES
@@ -221,7 +222,7 @@ a:hover {
 }
 
 .wwc-complete-check {
-    margin: 0 10px;
+    margin: 0 16.5px;
     font-size: 20px;
     vertical-align: middle;
     border: none;
@@ -395,4 +396,10 @@ a:hover {
 
 .pagination .page-link {
     color: #194767;
+}
+
+.wwc-btn-wrap {
+    border: none;
+    padding: 0;
+    line-height: initial;
 }

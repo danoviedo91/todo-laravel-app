@@ -1,7 +1,8 @@
 @extends('main')
 @section('content')
 
-{!! Form::open( array('route' => 'todos.store', 'class' => 'wwc-form-wrapper shadow-sm') ) !!}
+{!! Form::model( $todo, array('route' => ['todos.update', $todo->id], 'method' => 'PUT' ,'class' => 'wwc-form-wrapper shadow-sm') ) !!}
+
     <h3 class="wwc-form-title">New Task</h3>
     <div class="wwc-fields-wrapper d-flex justify-content-between">
         <div class="form-group">
@@ -19,7 +20,7 @@
     </div>
     <div class="d-flex justify-content-end">
         {!! link_to_route('index', 'Cancel', [], ['class' => 'btn wwc-cancel-btn']) !!}
-        {!! Form::submit('Create Task', array('class' => 'btn text-white wwc-create-task-btn')) !!}
+        {!! Form::submit('Edit Task', array('class' => 'btn text-white wwc-create-task-btn')) !!}
     </div>
 {{ Form::close() }}
 

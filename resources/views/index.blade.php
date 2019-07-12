@@ -2,7 +2,7 @@
 @section('content')
 <div class="d-flex justify-content-end wwc-mx-32">
 	<div class="my-auto mr-auto wwc-ml-30">
-			<span>Logged in as Daniel Oviedo</span>
+			<span>Logged in as Guest User</span>
 	</div>
 		<a class="btn wwc-add-task-btn text-white" href="{{ route('todos.create') }}">Add Task</a>
 </div>
@@ -17,69 +17,50 @@
 			</tr>
 		</thead>
 
+		@if ( !sizeof($todos) )
+			<tbody>
+				<tr>
+					<td colspan="3" id="wwc-notasks-msg">No tasks to show</td>
+				</tr>
+			</tbody>
+		@endif
+
 		<tbody>
-			<tr>
-				<td colspan="3" id="wwc-notasks-msg">No tasks to show</td>
-			</tr>
-		</tbody>
 
-		{{-- <tbody>
-
-			<%= for (task) in todo { %>
-
+			@foreach($todos as $todo)
+			
 			<tr>
 
 				<td class="wwc-task-name">
-
-					<%= if (task.Completed) { %>
-						<form action="<%= changeStatusPath({todo_id: task.ID}) %>" class="d-inline-block" method="POST">
-							<input type="hidden" name="_method" value="PATCH">
-							<input name="authenticity_token" type="hidden" value="<%= authenticity_token %>">
-							<button class="wwc-complete-check wwc-task-completed" type="submit"><i class="far fa-check-circle"></i></button>
-						</form>
-					<% } else { %>
-						<form action="<%= changeStatusPath({todo_id: task.ID}) %>" class="d-inline-block" method="POST">
-							<input type="hidden" name="_method" value="PATCH">
-							<input name="authenticity_token" type="hidden" value="<%= authenticity_token %>">
-							<button class="wwc-complete-check wwc-task-incompleted" type="submit"><i class="far fa-check-circle"></i></button>
-						</form>
-					<% } %>
-
-					<a href="<%= showPath({todo_id: task.ID }) %>" class="wwc-task-title"><%= task.Title %></a>
-
+					@if ($todo->completed)
+						{!! Form::model($todo, ['route' => ['todos.update', $todo->id], 'method' => 'PATCH', 'class' => 'd-inline-block']) !!}
+							<button class="wwc-complete-check wwc-task-completed wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
+						{!! Form::close() !!}
+					@endif
+					@if ( !($todo->completed) )
+						{!! Form::model($todo, ['route' => ['todos.update', $todo->id], 'method' => 'PATCH', 'class' => 'd-inline-block']) !!}
+							<button class="wwc-complete-check wwc-task-incompleted wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
+						{!! Form::close() !!}
+					@endif
+					<a href="{{ route('todos.show', ['todo'=>$todo->id]) }}" class="wwc-task-title">{{ $todo->title }}</a>
 				</td>
 
-				<%= if (isAdmin) { %>
-
-					<%= for (user) in users { %>
-						<%= if (user.ID.String() == task.UserID.String()) { %>
-
-							<%= if (user.IsAdmin) { %>
-								<td class="wwc-task-owner"><span class="align-middle"><%= user.FirstName %>&nbsp;<%= user.LastName %>&nbsp;</span><span class="badge badge-secondary wwc-bg-darbklue">admin</span></td>  
-							<% } %>
-
-							<%= if (!user.IsAdmin) { %>
-								<td class="wwc-task-owner"><%= user.FirstName %>&nbsp;<%= user.LastName %></td>
-							<% } %>
-
-						<% } %>
-					<% } %>
-
-				<% } %>
-
-				<td class="wwc-task-date-and-actions-regular"><%= task.Deadline.Day() %> <%= task.Deadline.Month() %>
-					<%= task.Deadline.Year() %></td>
+				<td class="wwc-task-date-and-actions-regular">{{ date('d F Y', strtotime($todo->deadline)) }}</td>
 
 				<td class="wwc-task-date-and-actions-regular">
-					<a href="<%= editPath({todo_id: task.ID}) %>" class="wwc-edit-item"><i class="fas fa-pencil-alt"></i></a>
-					<a class="js-wwc-trash-btn" href="<%= deletePath({todo_id: task.ID}) %>" data-method="DELETE"
-						data-confirm="Are you sure?"><i class="far fa-trash-alt"></i></a>
+
+				<a href="{{ route('todos.edit', ['todo' => $todo->id]) }}" class="wwc-edit-item"><i class="fas fa-pencil-alt"></i></a>
+
+					{!! Form::model($todo, ['route' => ['todos.destroy', $todo->id], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
+						<button type="submit" class="wwc-btn-wrap"><i class="far fa-trash-alt"></i></button>
+					{!! Form::close() !!}
+
 				</td>
 
 			</tr>
 
-			<% } %>
-		</tbody> --}}
+			@endforeach
+		</tbody>
 	</table>
 
 </div>

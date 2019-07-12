@@ -19,26 +19,40 @@
               List</span></a>
           <div class="wwc-uncompleted-and-date">
             <span class="wwc-number-of-incompleted-tasks">0 Incompleted Tasks</span><br>
-            <span class="wwc-today-date">Check your calendar</span>
+            <span class="wwc-today-date">{{ date('l d, F Y', strtotime( today() )) }}</span>
           </div>
         </div>
 
         <div class="ml-auto">
-          <ul class="d-flex align-items-center list-unstyled m-0 mr-5">
+          <ul class="d-flex align-items-center list-unstyled m-0">
 
-            <li><a href="/" class="text-white wwc-nav-link wwc-nav-first-link wwc-active-link">All Tasks</a></li>
-            <li><a href="/?status=incompleted" class="text-white wwc-nav-link wwc-nav-first-link">Incompleted Tasks</a></li>
-            <li><a href="/?status=completed" class="text-white wwc-nav-link">Completed Tasks</a></li>
+            @if ($filterStatus == null)
+              <li>{!! link_to_route('index', 'All Tasks', [], ['class' => 'text-white wwc-nav-link wwc-nav-first-link wwc-active-link']) !!}</li>
+            @else
+              <li>{!! link_to_route('index', 'All Tasks', [], ['class' => 'text-white wwc-nav-link wwc-nav-first-link']) !!}</li>
+            @endif
+
+            @if ($filterStatus == "incompleted")
+              <li>{!! link_to_route('index', 'Incompleted Tasks', ['status' => 'incompleted'], ['class' => 'text-white wwc-nav-link wwc-nav-first-link wwc-active-link']) !!}</li>
+            @else
+              <li>{!! link_to_route('index', 'Incompleted Tasks', ['status' => 'incompleted'], ['class' => 'text-white wwc-nav-link wwc-nav-first-link']) !!}</li>
+            @endif
+
+            @if ($filterStatus == "completed")
+              <li>{!! link_to_route('index', 'Completed Tasks', ['status' => 'completed'], ['class' => 'text-white wwc-nav-link wwc-active-link']) !!}</li>
+            @else
+              <li>{!! link_to_route('index', 'Completed Tasks', ['status' => 'completed'], ['class' => 'text-white wwc-nav-link']) !!}</li>
+            @endif
 
           </ul>
         </div>
-        <a class="btn wwc-btn-contrast text-white" href="/signout" data-method="DELETE">Sign Out</a>
       </nav>
 		</header>
 
 		@yield('content')
 
-		{{ HTML::script('js/app.js') }}
+    {{ HTML::script('js/app.js') }}
+    
 </body>
 
 </html>

@@ -11,13 +11,16 @@ class CreateTodosTable extends Migration
      *
      * @return void
      */
+
     public function up()
     {
         Schema::create('todos', function (Blueprint $table) {
-            $table->uuid('id')->primary();
-            $table->text('title');
-            $table->longText('description');
-            $table->date('deadline');
+            
+            $table->uuid('id');
+            $table->text('title')->nullable();
+            $table->longText('description')->nullable();
+            $table->date('deadline')->nullable();
+            $table->boolean('completed')->default(false);
             $table->timestamps();
         });
     }
