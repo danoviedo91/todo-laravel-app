@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>Todo List</title>
-	{{ HTML::style('css/app.css') }}
+	{{ HTML::style(secure_url('css/app.css')) }}
 </head>
 
   <body>
@@ -58,7 +58,7 @@
 
 		@yield('content')
 
-    {{ HTML::script('js/app.js') }}
+    {{ HTML::script(secure_url('js/app.js')) }}
     
 </body>
 
