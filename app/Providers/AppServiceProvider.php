@@ -30,6 +30,6 @@ class AppServiceProvider extends ServiceProvider
             $query->bindings;
             $query->time;
         });
-        URL::forceScheme('https');
+        //URL::forceScheme('https');
     }
 }
