@@ -1,26 +1,28 @@
 @extends('main')
 @section('content')
 
-{!! Form::open( array('route' => 'todos.store', 'class' => 'wwc-form-wrapper shadow-sm') ) !!}
+<form action="{{ route('todos.store') }}" method="POST" class="wwc-form-wrapper shadow-sm">
     <h3 class="wwc-form-title">New Task</h3>
+    @csrf
     <div class="wwc-fields-wrapper d-flex justify-content-between">
         <div class="form-group">
-            {!! Form::label('title', 'Title') !!}
-            {!! Form::text('title', null, array('class' => 'form-control')) !!}
+            <label for="title">Title</label>
+            <input type="text" name="title" id="title" class="form-control @error('title') is-invalid @enderror">
+            @error('title') <div class="invalid-feedback help-block">{{ $message }}</div> @enderror
         </div>
         <div class="form-group">
-            {!! Form::label('deadline', 'Deadline') !!}
-            {!! Form::date('deadline', null, array('class' => 'form-control')) !!}
+            <label for="deadline">Deadline</label>
+            <input type="date" name="deadline" id="deadline" class="form-control">
         </div>
     </div>
-    <div class="form-group">
-        {!! Form::label('description', 'Description') !!}
-        {!! Form::TextArea('description', null, array('class' => 'form-control', 'rows' => '4')) !!}
-    </div>
-    <div class="d-flex justify-content-end">
-        {!! link_to_route('index', 'Cancel', [], ['class' => 'btn wwc-cancel-btn']) !!}
-        {!! Form::submit('Create Task', array('class' => 'btn text-white wwc-create-task-btn')) !!}
-    </div>
-{{ Form::close() }}
+        <div class="form-group">
+            <label for="description">Description</label>
+            <textarea name="description" id="description" cols="30" rows="4" class="form-control"></textarea>
+        </div>
+        <div class="d-flex justify-content-end">
+            <a href="{{ route('index') }}" class="btn wwc-cancel-btn">Cancel</a>
+            <button type="submit" class="btn text-white wwc-create-task-btn">Create Task</button>
+        </div>
+</form>
 
 @stop

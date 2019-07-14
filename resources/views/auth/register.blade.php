@@ -9,31 +9,40 @@
         <div class="sign-form">
         <h1 class="text-center wwc-fsize-main">Register</h1>
 
-        {!! Form::open( array('route' => 'register', 'class' => '') ) !!}
+        <form method="POST" action="{{ route('register') }}" style="margin-bottom: 30px;">
+        
+            @csrf
 
-        <div class="form-group">
-            {!! Form::label('name', 'Name') !!}
-            {!! Form::text('name', null, array('class' => 'form-control')) !!}
-        </div>
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" name="name" id="name" class="form-control @error('name') is-invalid @enderror" value="{{ old('name') }}">
+                @error('name') <div class="invalid-feedback help-block">{{ $message }}</div> @enderror
+            </div>
 
-        <div class="form-group">
-          {!! Form::label('email', 'Email') !!}
-          {!! Form::text('email', null, array('class' => 'form-control')) !!}
-        </div>
-        <div class="form-group">
-          {!! Form::label('password', 'Password') !!}
-          {!! Form::password('password', array('class' => 'form-control')) !!}
-        </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" name="email" id="email" class="form-control @error('email') is-invalid @enderror" value="{{ old('email') }}">
+                @error('email') <div class="invalid-feedback help-block">{{ $message }}</div> @enderror
+            </div>
 
-        <div class="form-group">
-            {!! Form::label('password_confirmation', 'Password Confirmation') !!}
-            {!! Form::password('password_confirmation', array('class' => 'form-control', 'style' => 'margin-bottom: 30px;')) !!}
-        </div>
-            
-        <div class="d-flex justify-content-end">
-            {!! link_to_route('index', 'Cancel', [], ['class' => 'btn wwc-cancel-btn']) !!}
-            <button class="btn wwc-bg-cyan text-white">Register!</button>
-        </div>
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" class="form-control @error('password') is-invalid @enderror">
+                @error('password') <div class="invalid-feedback help-block">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="form-group">
+                <label for="password_confirmation">Password Confirmation</label>
+                <input type="password" name="password_confirmation" id="password_confirmation" class="form-control @error('password_confirmation') is-invalid @enderror">
+                @error('password_confirmation') <div class="invalid-feedback help-block">{{ $message }}</div> @enderror
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <a href="{{ route('index') }}" class="btn wwc-cancel-btn">Cancel</a>
+                <button class="btn wwc-bg-cyan text-white">Register!</button>
+            </div>
+        
+        </form>
 
         </div>
     </div>

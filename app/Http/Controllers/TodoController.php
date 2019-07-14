@@ -40,6 +40,10 @@ class TodoController extends Controller
     public function store(Request $request)
     {
 
+        $request->validate([
+            'title' => 'required',
+        ]);
+
         $todo = new Todo();
 
         $todo->id = Uuid::uuid4();
@@ -87,6 +91,10 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $request->validate([
+            'title' => 'required',
+        ]);
 
         $todo = Todo::find($id);
 

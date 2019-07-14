@@ -31,7 +31,8 @@ Route::get('/', function ()
     return view('index')
         ->with('todos', $todos)
         ->with('mainViewFlag', true)
-        ->with('auth', Auth::check() );
+        ->with('auth', Auth::check() )
+        ->with('user', Auth::user() );
 
 })->name('index');
 

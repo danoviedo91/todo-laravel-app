@@ -2,7 +2,7 @@
 @section('content')
 <div class="d-flex justify-content-end wwc-mx-32">
 	<div class="my-auto mr-auto wwc-ml-30">
-			<span>Logged in as Guest User</span>
+			<span>Logged in as {{ $user->name }}</span>
 	</div>
 		<a class="btn wwc-add-task-btn text-white" href="{{ route('todos.create') }}">Add Task</a>
 </div>
