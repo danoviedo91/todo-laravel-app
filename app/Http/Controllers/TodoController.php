@@ -46,7 +46,6 @@ class TodoController extends Controller
 
         $todo = new Todo();
 
-        $todo->id = Uuid::uuid4();
         $todo->title = Input::get('title');
         $todo->description = Input::get('description');
         $todo->deadline = Input::get('deadline');
