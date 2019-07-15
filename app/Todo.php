@@ -21,7 +21,16 @@ class Todo extends Model
     }
     public static function generateUuid()
     {
-         return Uuid::uuid4();
+        return Uuid::uuid4();
+    }
+
+    /**
+     * Get the post that owns the comment.
+     */
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 
 }

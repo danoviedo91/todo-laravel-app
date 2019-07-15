@@ -37003,8 +37003,8 @@ if (token) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /Users/daniel/php/todo-app-laravel/code/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /Users/daniel/php/todo-app-laravel/code/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /Users/wawandco/php/todo_app_laravel/code/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /Users/wawandco/php/todo_app_laravel/code/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

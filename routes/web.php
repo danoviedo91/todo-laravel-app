@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Input;
 use App\Todo;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
+use App\User;
 
 // ***
 
@@ -15,18 +16,21 @@ Route::get('/', function ()
     }
     
     $filterStatus = Input::get('status');
+    $userID = Auth::id();
 
     if ($filterStatus == "incompleted") {
-        $todos = Todo::where('completed', false)->get();
+        $todos = User::find($userID)->todos->where('completed', false);
     }
 
     if ($filterStatus == "completed") {
-        $todos = Todo::where('completed', true)->get();
+        $todos = User::find($userID)->todos->where('completed', true);
     }
 
     if ($filterStatus == "") {
-        $todos = Todo::all();
+        $todos = User::find($userID)->todos;
     }
+
+    //return var_dump($todos->);
 
     return view('index')
         ->with('todos', $todos)
@@ -35,10 +39,6 @@ Route::get('/', function ()
         ->with('user', Auth::user() );
 
 })->name('index');
-
-Route::get('/logout', function() {
-    Auth::logout();
-});
 
 Route::resource('todos', 'TodoController');
 

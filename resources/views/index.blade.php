@@ -2,7 +2,7 @@
 @section('content')
 <div class="d-flex justify-content-end wwc-mx-32">
 	<div class="my-auto mr-auto wwc-ml-30">
-			<span>Logged in as {{ $user->name }}</span>
+			<span>Logged in as {{ $user->first_name }}&nbsp;{{ $user->last_name }}</span>
 	</div>
 		<a class="btn wwc-add-task-btn text-white" href="{{ route('todos.create') }}">Add Task</a>
 </div>
@@ -20,7 +20,15 @@
 		@if ( !sizeof($todos) )
 			<tbody>
 				<tr>
-					<td colspan="3" id="wwc-notasks-msg">No tasks to show</td>
+					@if ( session('filterStatus') == "")
+						<td colspan="3" id="wwc-notasks-msg">No tasks to show</td>
+					@endif
+					@if ( session('filterStatus') == "incompleted")
+						<td colspan="3" id="wwc-notasks-msg">No incompleted tasks to show</td>
+					@endif
+					@if ( session('filterStatus') == "completed")
+						<td colspan="3" id="wwc-notasks-msg">No completed tasks to show</td>
+					@endif
 				</tr>
 			</tbody>
 		@endif
@@ -32,16 +40,16 @@
 			<tr>
 
 				<td class="wwc-task-name">
-					@if ($todo->completed)
-						{!! Form::model($todo, ['route' => ['todos.update', $todo->id], 'method' => 'PATCH', 'class' => 'd-inline-block']) !!}
-							<button class="wwc-complete-check wwc-task-completed wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
-						{!! Form::close() !!}
-					@endif
-					@if ( !($todo->completed) )
-						{!! Form::model($todo, ['route' => ['todos.update', $todo->id], 'method' => 'PATCH', 'class' => 'd-inline-block']) !!}
-							<button class="wwc-complete-check wwc-task-incompleted wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
-						{!! Form::close() !!}
-					@endif
+						<form action="{{ route('todos.update', ['id'=>$todo->id]) }}" method="POST" class="d-inline-block">
+							@csrf
+							@method('PATCH')
+							@if ( $todo->completed )
+								<button class="wwc-complete-check wwc-task-completed wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
+							@endif
+							@if ( !$todo->completed )
+								<button class="wwc-complete-check wwc-task-incompleted wwc-btn-wrap" type="submit"><i class="far fa-check-circle"></i></button>
+							@endif
+						</form>
 					<a href="{{ route('todos.show', ['todo'=>$todo->id]) }}" class="wwc-task-title">{{ $todo->title }}</a>
 				</td>
 
@@ -51,9 +59,11 @@
 
 				<a href="{{ route('todos.edit', ['todo' => $todo->id]) }}" class="wwc-edit-item"><i class="fas fa-pencil-alt"></i></a>
 
-					{!! Form::model($todo, ['route' => ['todos.destroy', $todo->id], 'method' => 'DELETE', 'class' => 'd-inline']) !!}
-						<button type="submit" class="wwc-btn-wrap"><i class="far fa-trash-alt"></i></button>
-					{!! Form::close() !!}
+				<form action="{{ route('todos.destroy', ['id'=>$todo->id]) }}" method="POST" class="d-inline">
+					@csrf
+					@method('DELETE')
+					<button type="submit" class="wwc-btn-wrap"><i class="far fa-trash-alt"></i></button>
+				</form>
 
 				</td>
 

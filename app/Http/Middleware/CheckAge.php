@@ -4,7 +4,8 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Input;
-use App\Todo;
+use App\User;
+use Illuminate\Support\Facades\Auth;
 
 class CheckAge
 {
@@ -19,7 +20,13 @@ class CheckAge
     {
 
         $filterStatus = Input::get('status');
-        $numberOfPendingTodoes = sizeof( Todo::where('completed', false)->get() );
+        $numberOfPendingTodoes = 0;
+
+        if (Auth::check()) {
+            $userID = Auth::id();
+            $todos = User::find($userID)->todos->where('completed', false);
+            $numberOfPendingTodoes = sizeof( $todos );
+        }
 
         session( array(
             'filterStatus' => $filterStatus,
