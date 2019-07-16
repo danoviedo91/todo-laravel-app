@@ -17,17 +17,18 @@ Route::get('/', function ()
     
     $filterStatus = Input::get('status');
     $userID = Auth::id();
+    $perPage = 10;
 
     if ($filterStatus == "incompleted") {
-        $todos = User::find($userID)->todos->where('completed', false);
+        $todos = User::find($userID)->todos()->where('completed', false)->paginate($perPage);
     }
 
     if ($filterStatus == "completed") {
-        $todos = User::find($userID)->todos->where('completed', true);
+        $todos = User::find($userID)->todos()->where('completed', true)->paginate($perPage);
     }
 
     if ($filterStatus == "") {
-        $todos = User::find($userID)->todos;
+        $todos = User::find($userID)->todos()->paginate($perPage);
     }
 
     //return var_dump($todos->);
@@ -38,7 +39,7 @@ Route::get('/', function ()
         ->with('auth', Auth::check() )
         ->with('user', Auth::user() );
 
-})->name('index');
+})->name('index')->middleware('getHeaderInfo');
 
 Route::resource('todos', 'TodoController');
 

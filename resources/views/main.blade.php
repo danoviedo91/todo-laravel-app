@@ -33,7 +33,7 @@
 
         <div class="ml-auto">
           <ul class="d-flex align-items-center list-unstyled m-0 mr-5">
-
+            
             @if (session('filterStatus') == null && isset($mainViewFlag) )
               <li>{!! link_to_route('index', 'All Tasks', [], ['class' => 'text-white wwc-nav-link wwc-nav-first-link wwc-active-link']) !!}</li>
             @else

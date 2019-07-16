@@ -21,7 +21,20 @@
         <textarea name="description" id="description" cols="30" rows="4" class="form-control">{{ old('description', $todo->description) }}</textarea>
     </div>
     <div class="d-flex justify-content-end">
-        <a href="{{ route('index') }}" class="btn wwc-cancel-btn">Cancel</a>
+        @php
+
+        $params = array();
+        $params['status'] = (session('filterStatus') != "") ? session('filterStatus') : null ;
+        $params['page'] = (session('page')) ? session('page') : null ;
+
+        foreach ($params as $param => $value) {
+            if ($value == null) {
+                unset($params[$param]);
+            }
+        }
+
+        @endphp
+        <a href="{{ route('index', $params) }}" class="btn wwc-cancel-btn">Cancel</a>
         <button type="submit" class="btn text-white wwc-create-task-btn">Edit Task</button>
     </div>
 

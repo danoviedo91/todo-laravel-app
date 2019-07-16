@@ -18,7 +18,20 @@
         </div>
         
     <div class="d-flex justify-content-end">
-        <a class="btn wwc-cancel-btn" href="/">Done</a>
+        @php
+
+            $params = array();
+            $params['status'] = (session('filterStatus') != "") ? session('filterStatus') : null ;
+            $params['page'] = (session('page')) ? session('page') : null ;
+
+            foreach ($params as $param => $value) {
+                if ($value == null) {
+                    unset($params[$param]);
+                }
+            }
+
+        @endphp
+        <a class="btn wwc-cancel-btn" href="{{ route('index', $params) }}">Done</a>
     </div>
 </div>
 

@@ -73,5 +73,12 @@
 		</tbody>
 	</table>
 
+	<div class="d-flex justify-content-center">
+
+		{{ $todos->appends(['status' => session('filterStatus')])->links() }}
+
+	</div>
+
 </div>
+
 @stop

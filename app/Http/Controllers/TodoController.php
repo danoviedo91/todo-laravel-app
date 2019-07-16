@@ -16,6 +16,7 @@ class TodoController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->middleware('checkTodoUser')->only(['show', 'edit', 'update', 'destroy']);
     }
 
     /**
@@ -60,6 +61,9 @@ class TodoController extends Controller
         $todo->user_id = Auth::id();
         $todo->save();
 
+        session()->forget('filterStatus');
+        session()->forget('page');
+
         return Redirect::route('todos.show', ['todo' => $todo->id]);
 
     }
@@ -72,6 +76,7 @@ class TodoController extends Controller
      */
     public function show($id)
     {
+
         $todo = Todo::find($id);
         return view('todo.show')
             ->with('todo', $todo);
@@ -85,15 +90,11 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        // try {
-        //     //code...
-        // } catch (\Throwable $th) {
-        //     //throw $th;
-        // }
 
         $todo = Todo::find($id);
         return view('todo.edit')
             ->with('todo', $todo);
+
     }
 
     /**
@@ -106,7 +107,7 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
 
-        if ( $request->method() != "PATCH") {
+        if ( $request->method() == "PUT") {
             $request->validate([
                 'title' => 'required',
             ]);
@@ -124,8 +125,18 @@ class TodoController extends Controller
 
         // If update is from "change_status", return to index
         if ($request->method() == "PATCH") {
-            return Redirect::route('index');
+
+            $params = null;
+
+            if (session('filterStatus') != "") {
+                $params = array('status' => session('filterStatus'));
+            }
+
+            return Redirect::route('index', $params);
         }
+
+        session()->forget('filterStatus');
+        session()->forget('page');
 
         return Redirect::route('todos.show', ['todo' => $todo->id]);
 
@@ -140,6 +151,14 @@ class TodoController extends Controller
     public function destroy($id)
     {
         Todo::destroy($id);
-        return redirect('/');
+
+        $params = null;
+
+        if (session('filterStatus') != "") {
+            $params = array('status' => session('filterStatus'));
+        }
+
+        return Redirect::route('index', $params);
+
     }
 }

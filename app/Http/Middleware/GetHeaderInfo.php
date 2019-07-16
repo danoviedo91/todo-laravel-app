@@ -6,8 +6,9 @@ use Closure;
 use Illuminate\Support\Facades\Input;
 use App\User;
 use Illuminate\Support\Facades\Auth;
+use DeepCopy\DeepCopy;
 
-class CheckAge
+class GetHeaderInfo
 {
     /**
      * Handle an incoming request.
@@ -19,7 +20,9 @@ class CheckAge
     public function handle($request, Closure $next)
     {
 
-        $filterStatus = Input::get('status');
+        $copier = new DeepCopy(true);
+        $filterStatus = $copier->copy(Input::get('status'));
+        $page = $copier->copy(Input::get('page'));
         $numberOfPendingTodoes = 0;
 
         if (Auth::check()) {
@@ -29,7 +32,9 @@ class CheckAge
         }
 
         session( array(
+            'flag' => false,
             'filterStatus' => $filterStatus,
+            'page' => $page,
             'numberOfPendingTodoes' => $numberOfPendingTodoes,
         ));
 
